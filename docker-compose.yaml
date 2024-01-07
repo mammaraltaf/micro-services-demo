@@ -1,0 +1,22 @@
+version: '3.0'
+services:
+    admin:
+      build:
+        context: .
+        dockerfile: Dockerfile
+      ports:
+        - "8080:8080"
+      depends_on:
+        - micro_service_admin_db
+
+    micro_service_admin_db:
+       image: mysql:5.7
+       ports:
+          - "33060:3306"
+       environment:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: admin
+          MYSQL_USER: root
+          MYSQL_PASSWORD: password
+       volumes:
+          - ./storage/dbdata:/var/lib/mysql
